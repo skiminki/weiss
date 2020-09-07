@@ -10,6 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: test
-      run: cd src && make pgo
-    - name: release
-      run: cd src && make release
+      run: cd bin && cmake && make
