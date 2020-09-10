@@ -34,6 +34,37 @@
 #include "uci.h"
 
 
+// LMR
+extern double LMRBase;
+extern double LMRDiv;
+
+// QS Delta
+extern int DeltaBaseP;
+extern int DeltaBaseQ;
+extern int DeltaBonusP;
+extern int DeltaBonusN;
+extern int DeltaBonusB;
+extern int DeltaBonusR;
+extern int DeltaBonusQ;
+
+// QS Futility Margin
+extern int QSFutility;
+
+// Razoring
+extern int RazorMargin;
+
+// Futility
+extern int Futility;
+extern int FutilImp;
+extern int FutilDepth;
+
+// Null Move Pruning
+extern int NMPBase;
+extern int NMPDDiv;
+extern int NMPEDiv;
+extern int NMPEMax;
+
+
 // Parses the time controls
 static void ParseTimeControl(char *str, Color color) {
 
@@ -135,6 +166,49 @@ static void UCISetOption(Engine *engine, char *str) {
     } else if (OptionName(str, "NoobBook")) {
 
         noobbook = !strncmp(OptionValue(str), "true", 4);
+
+    // Tuneables
+    } else if (OptionName(str, "LMRBase")) {
+        LMRBase = atoi(OptionValue(str)) / 100.0;
+    } else if (OptionName(str, "LMRDiv")) {
+        LMRDiv  = atoi(OptionValue(str)) / 100.0;
+
+    } else if (OptionName(str, "DeltaBaseP")) {
+        DeltaBaseP = atoi(OptionValue(str));
+    } else if (OptionName(str, "DeltaBaseQ")) {
+        DeltaBaseQ = atoi(OptionValue(str));
+    } else if (OptionName(str, "DeltaBonusP")) {
+        DeltaBonusP = atoi(OptionValue(str));
+    } else if (OptionName(str, "DeltaBonusN")) {
+        DeltaBonusN = atoi(OptionValue(str));
+    } else if (OptionName(str, "DeltaBonusB")) {
+        DeltaBonusB = atoi(OptionValue(str));
+    } else if (OptionName(str, "DeltaBonusR")) {
+        DeltaBonusR = atoi(OptionValue(str));
+    } else if (OptionName(str, "DeltaBonusQ")) {
+        DeltaBonusQ = atoi(OptionValue(str));
+
+    } else if (OptionName(str, "QSFutility")) {
+        QSFutility = atoi(OptionValue(str));
+
+    } else if (OptionName(str, "RazorMargin")) {
+        RazorMargin = atoi(OptionValue(str));
+
+    } else if (OptionName(str, "Futility")) {
+        Futility = atoi(OptionValue(str));
+    } else if (OptionName(str, "FutilImp")) {
+        FutilImp = atoi(OptionValue(str));
+    } else if (OptionName(str, "FutilDepth")) {
+        FutilDepth = atoi(OptionValue(str));
+
+    } else if (OptionName(str, "NMPBase")) {
+        NMPBase = atoi(OptionValue(str));
+    } else if (OptionName(str, "NMPDDiv")) {
+        NMPDDiv = atoi(OptionValue(str));
+    } else if (OptionName(str, "NMPEDiv")) {
+        NMPEDiv = atoi(OptionValue(str));
+    } else if (OptionName(str, "NMPEMax")) {
+        NMPEMax = atoi(OptionValue(str));
     }
 
     fflush(stdout);
@@ -148,6 +222,30 @@ static void UCIInfo() {
     printf("option name Threads type spin default %d min %d max %d\n", 1, 1, 2048);
     printf("option name SyzygyPath type string default <empty>\n");
     printf("option name NoobBook type check default false\n");
+
+    printf("option name LMRBase type spin default 75 min -10000 max 10000\n");
+    printf("option name LMRDiv type spin default 225 min -10000 max 10000\n");
+
+    printf("option name DeltaBaseP type spin default 110 min -10000 max 10000\n");
+    printf("option name DeltaBaseQ type spin default 1400 min -10000 max 10000\n");
+    printf("option name DeltaBonusP type spin default 110 min -10000 max 10000\n");
+    printf("option name DeltaBonusN type spin default 437 min -10000 max 10000\n");
+    printf("option name DeltaBonusB type spin default 460 min -10000 max 10000\n");
+    printf("option name DeltaBonusR type spin default 670 min -10000 max 10000\n");
+    printf("option name DeltaBonusQ type spin default 1400 min -10000 max 10000\n");
+
+    printf("option name QSFutility type spin default 155 min -10000 max 10000\n");
+
+    printf("option name RazorMargin type spin default 640 min -10000 max 10000\n");
+
+    printf("option name Futility type spin default 225 min -10000 max 10000\n");
+    printf("option name FutilImp type spin default 100 min -10000 max 10000\n");
+    printf("option name FutilDepth type spin default 7 min -10000 max 10000\n");
+
+    printf("option name NMPBase type spin default 3 min -10000 max 10000\n");
+    printf("option name NMPDDiv type spin default 5 min -10000 max 10000\n");
+    printf("option name NMPEDiv type spin default 256 min -10000 max 10000\n");
+    printf("option name NMPEMax type spin default 3 min -10000 max 10000\n");
     printf("uciok\n"); fflush(stdout);
 }
 
