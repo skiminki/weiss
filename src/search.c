@@ -76,6 +76,9 @@ int NMPDDiv = 5;
 int NMPEDiv = 256;
 int NMPEMax = 3;
 
+int InitialWindow = 12;
+int Delta = 16;
+
 
 // Initializes the late move reduction array
 CONSTR InitReductions() {
@@ -502,8 +505,8 @@ static int AspirationWindow(Thread *thread) {
     int score = thread->score;
     int depth = thread->depth;
 
-    const int initialWindow = 12;
-    int delta = 16;
+    const int initialWindow = InitialWindow;
+    int delta = Delta;
 
     int alpha = -INFINITE;
     int beta  =  INFINITE;

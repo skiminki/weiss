@@ -64,6 +64,9 @@ extern int NMPDDiv;
 extern int NMPEDiv;
 extern int NMPEMax;
 
+extern int InitialWindow;
+extern int Delta;
+
 
 // Parses the time controls
 static void ParseTimeControl(char *str, Color color) {
@@ -209,6 +212,11 @@ static void UCISetOption(Engine *engine, char *str) {
         NMPEDiv = atoi(OptionValue(str));
     } else if (OptionName(str, "NMPEMax")) {
         NMPEMax = atoi(OptionValue(str));
+
+    } else if (OptionName(str, "InitialWindow")) {
+        InitialWindow = atoi(OptionValue(str));
+    } else if (OptionName(str, "Delta")) {
+        Delta = atoi(OptionValue(str));
     }
 
     fflush(stdout);
@@ -246,6 +254,9 @@ static void UCIInfo() {
     printf("option name NMPDDiv type spin default 5 min -10000 max 10000\n");
     printf("option name NMPEDiv type spin default 256 min -10000 max 10000\n");
     printf("option name NMPEMax type spin default 3 min -10000 max 10000\n");
+
+    printf("option name InitialWindow type spin default 12 min -10000 max 10000\n");
+    printf("option name Delta type spin default 16 min -10000 max 10000\n");
     printf("uciok\n"); fflush(stdout);
 }
 
