@@ -76,7 +76,7 @@ static int QuiescenceDeltaMargin(const Position *pos) {
 
     // Optimistic we can improve our position by a pawn without capturing anything,
     // or if we have a pawn on the 7th we can hope to improve by a queen instead
-    const int DeltaBase = PawnOn7th(pos) ? 1400 : 110;
+    const int DeltaBase = PawnOn7th(pos) ? 1400 : 300;
 
     // Look for possible captures on the board
     const Bitboard enemy = colorBB(!sideToMove);
